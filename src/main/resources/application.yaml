@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5438/postgres
+#    username: user
+#    password: password
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8083
+
+service:
+  customer:
+    host: http://localhost:8084
+
+  jackson:
+    default-property-inclusion: non_null
+
+
