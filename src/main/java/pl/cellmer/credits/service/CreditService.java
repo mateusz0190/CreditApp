@@ -18,20 +18,21 @@ public class CreditService {
     private final CustomerService customerService;
 
     public Integer createCredit(Customer customer, Credit credit) {
-        Optional<Customer> foundCustomer = customerService.searchCustomer(customer.getPesel())
+     /*   Optional<Customer> foundCustomer = customerService.searchCustomer(customer.getPesel())
                 .or(() -> customerService.createCustomer(customer));
 
-        if (foundCustomer.isPresent()) {
-            CreditEntity creditEntity = creditRepository.save(CreditEntity.builder()
-                    .creditName(credit.getCreditName())
-                    .value(credit.getValue())
-                    .customerId(customer.getCustomerId())
-                    .build());
+      if (foundCustomer.isPresent()) {*/
+        customerService.createCustomer(customer);
+        CreditEntity creditEntity = creditRepository.save(CreditEntity.builder()
+                .creditName(credit.getCreditName())
+                .value(credit.getValue())
+                .customerId(customer.getCustomerId())
+                .build());
 
-            return creditEntity.getCreditId();
-        }
+        return creditEntity.getCreditId();
+        //}
 
-        throw new RuntimeException("Customer not found and not created");
+        //throw new RuntimeException("Customer not found and not created");
     }
 
     public List<Credit> getCredits() {

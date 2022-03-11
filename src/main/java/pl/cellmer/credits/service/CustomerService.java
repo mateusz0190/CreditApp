@@ -15,18 +15,24 @@ public class CustomerService {
     private final CustomerClient customerClient;
 
     public Optional<Customer> searchCustomer(String pesel) {
-        SearchCustomerResponseDto foundCustomer = customerClient.searchCustomer(SearchCustomerRequestDto.builder()
-                .pesel(pesel).build());
+        SearchCustomerResultResponseDto foundCustomer = customerClient.searchCustomer(SearchCustomerResultRequestDto.builder().pesel(pesel).build());
 
         return foundCustomer.getSearchResult().stream().findFirst();
     }
 
     public Optional<Customer> createCustomer(Customer customer) {
+
+        CreateCustomerResponseDto customerController = new CustomerController().createCustomer(CreateCustomerRequestDto.builder()
+                .firstName(customer.getFirstName())
+                .lastName(customer.getLastName())
+                .pesel(customer.getPesel()).build());
+        Integer customerId = customerController.getCustomerId();
         CreateCustomerResponseDto createdCustomer = customerClient.createCustomer(CreateCustomerRequestDto.builder()
                 .firstName(customer.getFirstName())
                 .lastName(customer.getLastName())
                 .pesel(customer.getPesel()).build());
-        Integer customerId = createdCustomer.getCustomerId();
+        customerId = createdCustomer.getCustomerId();
+        createdCustomer.setCustomerId(customerId);
         customer.setCustomerId(customerId);
         return Optional.of(customer);
 

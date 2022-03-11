@@ -31,7 +31,8 @@ public class CreditController {
                                 .pesel(createCreditRequestDto.getPesel()).build(),
                         Credit.builder()
                                 .creditName(createCreditRequestDto.getCreditName())
-                                .value(createCreditRequestDto.getCreditValue()).build()))
+                                .value(createCreditRequestDto.getCreditValue())
+                                .build()))
                 .build());
 
 
